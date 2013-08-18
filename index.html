@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Las fotos más hermosas del mundo - Twitter Entities Demo</title>
+		<meta name="description" content="Twitter tweets entities test: photos" />
+		<meta name="author" content="Jaime Guaman" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<link href='http://fonts.googleapis.com/css?family=Finger+Paint' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet/less" href="style.css" type="text/css" media="screen">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="javascripts/imagesLoaded.js"></script>
+		<script src="javascripts/masonry.js"></script>
+		<script src="javascripts/tweets.js"></script>
+		<!--[if ie]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<link href="stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" >
+		<![endif]-->
+	</head>
+	<body>
+		<div id="overlay">
+			<p>
+				Click para cerrar
+			</p>
+			<img src="" alt="esto es una imagen" title=""/>
+		</div>
+		<div id="cargando"></div>
+		<div id="noCargaLaWea">
+			<p class="error">
+				Ups! esto está demorando demasiado. <a href="#" onclick="document.location.reload(true)"> Intenta recargar la página (F5)</a>
+			</p>
+		</div>
+		<div id="contenedor-fotos">
+			<div id="fotos" class="row">
+				<!-- DIV EJEMPLO
+				<div id="foto-257511332880986112" class="column grid-16">
+				<img src="http://pbs.twimg.com/media/A5LdMWJCMAE2c1q.jpg:large" alt="assd"/>
+				</div>
+				</div> -->
+			</div>
+			<div id="fin">
+				<p>
+					Test Tweets <a href="https://dev.twitter.com/docs/tweet-entities">Entities</a>. Jaime Guaman - Octubre 2012. <a href="https://twitter.com/jaimeg90">@jaimeg90</a>
+				</p>
+				<p>
+					Imágenes obtenidas desde twitter, <a href="https://twitter.com/BestEarthPix">@BestEarthPix</a>
+				</p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var cargado = false;
+			var controlCarga = null;
+			$(document).on('ready', function() {
+				controlCarga = setInterval(fotosTimeOut,10000);
+				tweets.get('#fotos', function(){
+					cargado=true
+				});
+			});
+			$('#overlay').click(function() {
+				$(this).fadeOut('slow');
+				$('#overlay img').fadeOut('fast');
+
+			});
+			function detalleFoto(url) {
+				$('#overlay img').attr('src', url);
+				$('#overlay').fadeIn('fast');
+				$('#overlay img').imagesLoaded(function() {
+					$('#overlay img').fadeIn('slow');
+				});
+			}
+
+			function fotosTimeOut() {
+				clearInterval(controlCarga);
+				if(!cargado){
+					$('#noCargaLaWea').fadeIn('slow');
+				}
+
+			}
+		</script>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-27439178-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
+	</body>
+
+</html>
